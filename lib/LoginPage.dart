@@ -47,8 +47,8 @@ class LoginState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 80),
                           child: Row(
                             children: [
-                              Image.network(
-                                'https://i.pinimg.com/564x/d8/ff/30/d8ff3064a3067ac45a70f762f4977d90.jpg',
+                              Image.asset(
+                                'assets/facebook.jpg',
                                 width: 18,
                               ),
                               const Padding(
@@ -74,8 +74,8 @@ class LoginState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 80),
                           child: Row(
                             children: [
-                              Image.network(
-                                'https://i.pinimg.com/736x/67/ca/ed/67caed418bc1332a490d35bc3ab25117.jpg',
+                              Image.asset(
+                                'assets/google.jpg',
                                 width: 18,
                               ),
                               const Padding(
@@ -101,8 +101,8 @@ class LoginState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 80),
                           child: Row(
                             children: [
-                              Image.network(
-                                'https://i.pinimg.com/564x/cf/11/eb/cf11ebcc0a874e3ad3830431f7b0ab58.jpg',
+                              Image.asset(
+                                'assets/apple.jpg',
                                 width: 18,
                               ),
                               const Padding(
