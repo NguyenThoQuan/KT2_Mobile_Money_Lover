@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kt2/View/Person.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'LoginPage.dart';
 import 'RegisterPage.dart';
@@ -304,7 +305,14 @@ class HomeState extends State<HomePage> {
               label: "Ngân sách"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Person()
+                  ));
+                },
+                icon: Icon(Icons.person),
+              ),
               label: "Tài khoản"
           )
         ],

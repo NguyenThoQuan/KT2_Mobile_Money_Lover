@@ -191,7 +191,7 @@ class LoginState extends State<LoginPage> {
                             final prefs = await SharedPreferences.getInstance();
                             prefs.setString('username', userNameController.text).then((value) {
                               Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => HomePage(symbol: '',))
+                                  MaterialPageRoute(builder: (context) => HomePage(symbol: 'VND',))
                               );
                             });
                           },

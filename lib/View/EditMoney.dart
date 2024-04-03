@@ -40,7 +40,11 @@ class EditMoneyState extends State<EditMoney> {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextButton (
-                  onPressed: () {}, 
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CustomMoney(name: '${editTienTe[index].name}', img: '${editTienTe[index].img}', symbol: '${editTienTe[index].symbol}')
+                    ));
+                  },
                   child: Row (
                     children: [
                       TextButton(

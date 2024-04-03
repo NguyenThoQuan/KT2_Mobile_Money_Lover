@@ -174,7 +174,7 @@ class RegisterState extends State<RegisterPage> {
                           child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CustomMoney(name: 'Việt Nam', img: 'assets/vn.jpg', symbol: ''))
+                                    builder: (context) => CustomMoney(name: 'Việt Nam', img: 'assets/vn.jpg', symbol: 'VND'))
                                 );
                               },
                               style: ElevatedButton.styleFrom(
