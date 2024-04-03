@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kt2/Network/thuchi_request.dart';
 import 'package:kt2/View/Person.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Model/thuchi.dart';
 import 'LoginPage.dart';
 import 'RegisterPage.dart';
 import 'NewTransaction.dart';
@@ -39,6 +41,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
+  List<ThuChi> stateThuChi = [];
+
   final String symbol;
 
   HomeState({required this.symbol});
@@ -47,7 +51,33 @@ class HomeState extends State<HomePage> {
   double sizeInkWell = 0;
 
   @override
+  void initState() {
+    super.initState();
+    ThuChiRequest.fetchThuChis().then((dataTienTeFromServer) {
+      setState(() {
+        stateThuChi = dataTienTeFromServer;
+      });
+    });
+  }
+
+  int calculateTotal(String field) {
+    int total = 0;
+    for (var item in stateThuChi) {
+      if (field == 'thu') {
+        total += int.parse(item.thu!);
+      } else if (field == 'chi') {
+        total += int.parse(item.chi!);
+      }
+    }
+    return total;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    int totalThu = calculateTotal('thu');
+    int totalChi = calculateTotal('chi');
+    int totalMoney = totalThu - totalChi;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -59,7 +89,7 @@ class HomeState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      Text("0 $symbol", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+                      Text("$totalMoney $symbol", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
                       IconButton(
                         icon: const Icon(Icons.remove_red_eye, color: Colors.white,),
                         iconSize: 18,
@@ -117,16 +147,18 @@ class HomeState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                                'assets/tienmat.png',
-                              width: 36,
+                            Row (
+                              children: [
+                                Image.asset(
+                                  'assets/tienmat.png',
+                                  width: 36,
+                                ),
+                                Text("     Tiền mặt", style: TextStyle(color: Colors.white),),
+                              ],
                             ),
-                            const Text("     Tiền mặt", style: TextStyle(color: Colors.white),),
-                            Padding(
-                              padding: EdgeInsets.only(left: 277),
-                              child: Text("0 $symbol", style: TextStyle(color: Colors.white),),
-                            )
+                            Text("$totalMoney $symbol", style: TextStyle(color: Colors.white),),
                           ],
                         ),
                       ),
@@ -173,7 +205,7 @@ class HomeState extends State<HomePage> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 16),
-                              child: Text("0 $symbol", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                              child: Text("$totalChi $symbol", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                             ),
                             const Row(
                               children: [
@@ -245,7 +277,7 @@ class HomeState extends State<HomePage> {
                               children: [
                                 Icon(Icons.trending_down, color: Colors.red,),
                                 Text("Tổng số tiền chi", style: TextStyle(color: Colors.white),),
-                                Text("0 $symbol", style: TextStyle(color: Colors.red),)
+                                Text("$totalChi $symbol", style: TextStyle(color: Colors.red),)
                               ],
                             ),
                           ),
@@ -256,7 +288,7 @@ class HomeState extends State<HomePage> {
                               children: [
                                 Icon(Icons.trending_up, color: Colors.green,),
                                 Text("Tổng số tiền thu", style: TextStyle(color: Colors.white),),
-                                Text("0 $symbol", style: TextStyle(color: Colors.green),)
+                                Text("$totalThu $symbol", style: TextStyle(color: Colors.green),)
                               ],
                             ),
                           )
@@ -324,3 +356,4 @@ class HomeState extends State<HomePage> {
   }
 
 }
+
