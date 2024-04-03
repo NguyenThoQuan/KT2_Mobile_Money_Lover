@@ -21,7 +21,15 @@ class EditMoneyState extends State<EditMoney> {
         ],
       ),
       body: ListView.builder(
-
+        itemCount: 20,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text("Nước $index"),
+            ),
+          );
+        },
       )
     );
   }
