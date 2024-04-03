@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kt2/main.dart';
 
 class NewTransaction extends StatefulWidget {
   const NewTransaction({super.key});
@@ -93,7 +94,11 @@ class NewTransactionState extends State<NewTransaction> {
         width: 465,
         height: 40,
         child: FloatingActionButton(
-          onPressed: () {  },
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomePage())
+            );
+          },
           child: Text("Lưu"),
           backgroundColor: Colors.green,
         ),

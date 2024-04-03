@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kt2/CustomMoney.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -171,7 +172,11 @@ class RegisterState extends State<RegisterPage> {
                         child: Container(
                           width: 420,
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => CustomMoney())
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                                 shape: RoundedRectangleBorder(
