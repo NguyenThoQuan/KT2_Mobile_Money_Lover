@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kt2/main.dart';
+
+import 'main.dart';
 
 class NewTransaction extends StatefulWidget {
   const NewTransaction({super.key});

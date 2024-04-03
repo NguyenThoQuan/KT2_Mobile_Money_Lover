@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kt2/CustomMoney.dart';
+import 'package:kt2/View/CustomMoney.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
