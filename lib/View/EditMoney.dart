@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kt2/View/CustomMoney.dart';
 import '../Model/tiente.dart';
 import '../Network/tiente_request.dart';
 
 class EditMoney extends StatefulWidget {
-  const EditMoney({super.key});
-
   @override
   State<StatefulWidget> createState() => EditMoneyState();
 }
@@ -45,11 +44,19 @@ class EditMoneyState extends State<EditMoney> {
                   child: Row (
                     children: [
                       TextButton(
-                          onPressed: () {}, 
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CustomMoney(name: '${editTienTe[index].name}', img: '${editTienTe[index].img}', symbol: '${editTienTe[index].symbol}')
+                            ));
+                          },
                           child: Row(
                             children: [
-                              Text('${editTienTe[index].name} - '),
-                              Text('${editTienTe[index].symbol}')
+                              Image.asset(
+                                '${editTienTe[index].img}',
+                                width: 32,
+                              ),
+                              Text('     ${editTienTe[index].name} - ', style: TextStyle(color: Colors.white),),
+                              Text('${editTienTe[index].symbol}', style: TextStyle(color: Colors.white))
                             ],
                           )
                       )

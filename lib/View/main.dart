@@ -29,13 +29,19 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  final String symbol;
+
+  HomePage({required this.symbol});
 
   @override
-  State<StatefulWidget> createState() => HomeState();
+  State<StatefulWidget> createState() => HomeState(symbol: symbol);
 }
 
 class HomeState extends State<HomePage> {
+  final String symbol;
+
+  HomeState({required this.symbol});
+
   final GlobalKey _tooltipKey = GlobalKey();
   double sizeInkWell = 0;
 
@@ -48,20 +54,22 @@ class HomeState extends State<HomePage> {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("0 đ", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
-                  IconButton(
-                    icon: const Icon(Icons.remove_red_eye, color: Colors.white,),
-                    iconSize: 18,
-                    onPressed: () {},
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 347.5),
-                    child: IconButton(
+                  Row(
+                    children: [
+                      Text("0 $symbol", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+                      IconButton(
+                        icon: const Icon(Icons.remove_red_eye, color: Colors.white,),
+                        iconSize: 18,
                         onPressed: () {},
-                        icon: const Icon(Icons.notifications, color: Colors.white,)
-                    ),
-                  )
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications, color: Colors.white,)
+                  ),
                 ],
               ),
               Row(
@@ -114,9 +122,9 @@ class HomeState extends State<HomePage> {
                               width: 36,
                             ),
                             const Text("     Tiền mặt", style: TextStyle(color: Colors.white),),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(left: 277),
-                              child: Text("0 đ", style: TextStyle(color: Colors.white),),
+                              child: Text("0 $symbol", style: TextStyle(color: Colors.white),),
                             )
                           ],
                         ),
@@ -162,9 +170,9 @@ class HomeState extends State<HomePage> {
                                 ],
                               ),
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(top: 16),
-                              child: Text("0 đ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                              child: Text("0 $symbol", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                             ),
                             const Row(
                               children: [
@@ -226,7 +234,7 @@ class HomeState extends State<HomePage> {
                         )
                       ],
                     ),
-                    const Card(
+                    Card(
                       child: Column(
                         children: [
                           Padding(
@@ -236,7 +244,7 @@ class HomeState extends State<HomePage> {
                               children: [
                                 Icon(Icons.trending_down, color: Colors.red,),
                                 Text("Tổng số tiền chi", style: TextStyle(color: Colors.white),),
-                                Text("0 đ", style: TextStyle(color: Colors.red),)
+                                Text("0 $symbol", style: TextStyle(color: Colors.red),)
                               ],
                             ),
                           ),
@@ -247,7 +255,7 @@ class HomeState extends State<HomePage> {
                               children: [
                                 Icon(Icons.trending_up, color: Colors.green,),
                                 Text("Tổng số tiền thu", style: TextStyle(color: Colors.white),),
-                                Text("0 đ", style: TextStyle(color: Colors.green),)
+                                Text("0 $symbol", style: TextStyle(color: Colors.green),)
                               ],
                             ),
                           )

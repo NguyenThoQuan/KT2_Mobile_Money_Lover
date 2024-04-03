@@ -97,7 +97,7 @@ class NewTransactionState extends State<NewTransaction> {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage())
+                builder: (context) => HomePage(symbol: '',))
             );
           },
           child: Text("Lưu"),

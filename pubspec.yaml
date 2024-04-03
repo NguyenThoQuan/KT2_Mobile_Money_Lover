@@ -66,6 +66,9 @@ flutter:
     - assets/facebook.jpg
     - assets/google.jpg
     - assets/apple.jpg
+    - assets/vn.jpg
+    - assets/my.jpg
+    - assets/euro.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

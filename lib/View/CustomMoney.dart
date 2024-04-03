@@ -3,14 +3,24 @@ import 'EditMoney.dart';
 import 'main.dart';
 
 class CustomMoney extends StatefulWidget {
-  const CustomMoney({super.key});
+  final String name;
+  final String img;
+  final String symbol;
+
+  CustomMoney({required this.name, required this.img, required this.symbol});
 
   @override
-  State<StatefulWidget> createState() => CustomMoneyState();
+  State<StatefulWidget> createState() => CustomMoneyState(name: name, img: img, symbol: symbol);
 }
 
 class CustomMoneyState extends State<CustomMoney> {
-  
+  final String name;
+  final String img;
+  final String symbol;
+  String symbolData = '';
+
+  CustomMoneyState({required this.name, required this.img, required this.symbol});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +45,8 @@ class CustomMoneyState extends State<CustomMoney> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.flag),
-                        Text("Việt Nam Đồng"),
+                        Image.asset(img, width: 32,),
+                        Text(name),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -55,12 +65,15 @@ class CustomMoneyState extends State<CustomMoney> {
         ),
       ),
       floatingActionButton: Container(
-        width: 465,
+        width: 475,
         height: 40,
         child: FloatingActionButton(
           onPressed: () {
+            setState(() {
+              symbolData = symbol;
+            });
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage())
+                builder: (context) => HomePage(symbol: symbolData))
             );
           },
           child: Text("Lưu"),
