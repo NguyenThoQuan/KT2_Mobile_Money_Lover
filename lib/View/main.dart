@@ -41,6 +41,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
+
   List<ThuChi> stateThuChi = [];
 
   final String symbol;

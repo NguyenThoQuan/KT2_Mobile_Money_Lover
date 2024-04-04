@@ -143,13 +143,14 @@ class LoginState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
                               child: TextField(
+                                controller: userNameController,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   labelText: 'Email',
@@ -159,13 +160,14 @@ class LoginState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
                               child: TextField(
+                                controller: passwordController,
                                 keyboardType: TextInputType.text,
                                 obscureText: true,
                                 decoration: InputDecoration(
