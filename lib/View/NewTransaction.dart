@@ -14,7 +14,8 @@ class NewTransaction extends StatefulWidget {
 }
 
 class NewTransactionState extends State<NewTransaction> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerThu = TextEditingController();
+  final TextEditingController _controllerChi = TextEditingController();
   Future<ThuChi>? _futureThuChi;
 
   @override
@@ -37,9 +38,9 @@ class NewTransactionState extends State<NewTransaction> {
                       Text("   "),
                       Expanded(
                           child: TextField(
-                            controller: _controller,
+                            controller: _controllerThu,
                             decoration: InputDecoration(
-                              hintText: "0"
+                              hintText: "Nhập số tiền thu"
                             ),
                           )
                       )
@@ -50,10 +51,15 @@ class NewTransactionState extends State<NewTransaction> {
                     child: Row(
                       children: [
                         Icon(Icons.menu),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text("Chọn nhóm", style: TextStyle(color: Colors.white54, fontSize: 20),)
-                        ),
+                        Text("   "),
+                        Expanded(
+                            child: TextField(
+                              controller: _controllerChi,
+                              decoration: InputDecoration(
+                                  hintText: "Nhập số tiền chi"
+                              ),
+                            )
+                        )
                       ],
                     ),
                   ),
@@ -105,7 +111,7 @@ class NewTransactionState extends State<NewTransaction> {
         child: FloatingActionButton(
           onPressed: () {
             setState(() {
-              _futureThuChi = createThuChi(_controller.text);
+              _futureThuChi = createThuChi(_controllerThu.text, _controllerChi.text);
             });
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => HomePage(symbol: '',))
@@ -118,7 +124,7 @@ class NewTransactionState extends State<NewTransaction> {
     );
   }
 
-  Future<ThuChi> createThuChi(String thu) async {
+  Future<ThuChi> createThuChi(String thu, String chi) async {
     final response = await https.post(
       Uri.parse('http://localhost:3000/ThuChi'),
       headers: <String, String>{
@@ -126,6 +132,7 @@ class NewTransactionState extends State<NewTransaction> {
       },
       body: jsonEncode(<String, String>{
         "thu": thu,
+        "chi": chi,
       }),
     );
 
@@ -142,10 +149,11 @@ class NewTransactionState extends State<NewTransaction> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Text(snapshot.data!.thu.toString());
+        } else if (snapshot.hasData) {
+          return Text(snapshot.data!.chi.toString());
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
-
         return const CircularProgressIndicator();
       },
     );
