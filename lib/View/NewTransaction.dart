@@ -123,7 +123,7 @@ class NewTransactionState extends State<NewTransaction> {
               _futureThuChi = createThuChi(_controllerThu.text, _controllerChi.text);
             });
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage(symbol: '',))
+                builder: (context) => HomePage(symbol: '', img: '', name: '',))
             );
           },
           child: Text("Lưu"),

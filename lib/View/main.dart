@@ -33,11 +33,13 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatefulWidget {
   final String symbol;
+  final String img;
+  final String name;
 
-  HomePage({required this.symbol});
+  HomePage({required this.symbol, required this.img, required this.name});
 
   @override
-  State<StatefulWidget> createState() => HomeState(symbol: symbol);
+  State<StatefulWidget> createState() => HomeState(symbol: symbol, img: img, name: name);
 }
 
 class HomeState extends State<HomePage> {
@@ -45,8 +47,13 @@ class HomeState extends State<HomePage> {
   List<ThuChi> stateThuChi = [];
 
   final String symbol;
+  final String img;
+  final String name;
+  String symbolData = '';
+  String imgData = '';
+  String nameData = '';
 
-  HomeState({required this.symbol});
+  HomeState({required this.symbol, required this.img, required this.name});
 
   final GlobalKey _tooltipKey = GlobalKey();
   double sizeInkWell = 0;
@@ -347,8 +354,13 @@ class HomeState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: IconButton(
                 onPressed: () {
+                  setState(() {
+                    symbolData = symbol;
+                    imgData = img;
+                    nameData = name;
+                  });
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Person()
+                      builder: (context) => Person(symbol: symbolData, img: imgData, name: nameData)
                   ));
                 },
                 icon: Icon(Icons.person),

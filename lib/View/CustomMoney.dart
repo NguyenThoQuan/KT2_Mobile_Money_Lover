@@ -18,6 +18,8 @@ class CustomMoneyState extends State<CustomMoney> {
   final String img;
   final String symbol;
   String symbolData = '';
+  String imgData = '';
+  String nameData = '';
 
   CustomMoneyState({required this.name, required this.img, required this.symbol});
 
@@ -71,9 +73,11 @@ class CustomMoneyState extends State<CustomMoney> {
           onPressed: () {
             setState(() {
               symbolData = symbol;
+              imgData = img;
+              nameData = name;
             });
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage(symbol: symbolData))
+                builder: (context) => HomePage(symbol: symbolData, img: imgData, name: nameData))
             );
           },
           child: Text("Lưu"),

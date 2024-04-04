@@ -6,12 +6,26 @@ import 'CustomMoney.dart';
 import 'NewTransaction.dart';
 
 class Person extends StatefulWidget {
+  final String name;
+  final String img;
+  final String symbol;
+
+  Person({required this.name, required this.img, required this.symbol});
+
 
   @override
-  State<StatefulWidget> createState() => PersonState();
+  State<StatefulWidget> createState() => PersonState(name: name, img: img, symbol: symbol);
 }
 
 class PersonState extends State<Person> {
+  final String name;
+  final String img;
+  final String symbol;
+  String symbolData = '';
+  String imgData = '';
+  String nameData = '';
+
+  PersonState({required this.name, required this.img, required this.symbol});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +48,13 @@ class PersonState extends State<Person> {
               child: Card(
                 child: TextButton(
                   onPressed: () {
+                    setState(() {
+                      symbolData = symbol;
+                      imgData = img;
+                      nameData = name;
+                    });
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CustomMoney(name: 'Việt Nam', img: 'assets/vn.jpg', symbol: 'VND',)
+                        builder: (context) => CustomMoney(symbol: symbolData, img: imgData, name: nameData)
                     ));
                   },
                   child: Padding(
@@ -92,8 +111,9 @@ class PersonState extends State<Person> {
           BottomNavigationBarItem(
               icon: IconButton(
                 onPressed: () {
+                  setState(() {});
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Person()
+                      builder: (context) => Person(symbol: symbolData, img: imgData, name: nameData)
                   ));
                 },
                 icon: Icon(Icons.person),
