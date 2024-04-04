@@ -69,6 +69,13 @@ class HomeState extends State<HomePage> {
         total += int.parse(item.chi!);
       }
     }
+
+    if (symbol == '\$') {
+      total = (total / 24).round();
+    } else if (symbol == 'Euro') {
+      total = (total / 27).round();
+    }
+
     return total;
   }
 
