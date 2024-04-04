@@ -19,6 +19,13 @@ class NewTransactionState extends State<NewTransaction> {
   Future<ThuChi>? _futureThuChi;
 
   @override
+  void initState() {
+    super.initState();
+      _controllerThu.text = '0';
+      _controllerChi.text = '0';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -39,6 +46,7 @@ class NewTransactionState extends State<NewTransaction> {
                       Expanded(
                           child: TextField(
                             controller: _controllerThu,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               hintText: "Nhập số tiền thu"
                             ),
@@ -55,6 +63,7 @@ class NewTransactionState extends State<NewTransaction> {
                         Expanded(
                             child: TextField(
                               controller: _controllerChi,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   hintText: "Nhập số tiền chi"
                               ),
