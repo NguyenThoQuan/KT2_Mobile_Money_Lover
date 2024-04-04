@@ -1,0 +1,46 @@
+{
+  "ThuChi": [
+    {
+      "id": "1",
+      "thu": "0",
+      "chi": "0"
+    },
+    {
+      "id": "fbbd",
+      "thu": "200000",
+      "chi": "10000"
+    },
+    {
+      "id": "95ea",
+      "thu": "240000",
+      "chi": "72000"
+    }
+  ],
+  "TienTe": [
+    {
+      "id": "1",
+      "name": "Viet Nam",
+      "symbol": "VND",
+      "img": "assets/vn.jpg"
+    },
+    {
+      "id": "2",
+      "name": "United State Dollar",
+      "symbol": "$",
+      "img": "assets/my.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Euro",
+      "symbol": "Euro",
+      "img": "assets/euro.jpg"
+    }
+  ],
+  "TaiKhoan": [
+    {
+      "id": "1",
+      "username": "",
+      "password": ""
+    }
+  ]
+}
