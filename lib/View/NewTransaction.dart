@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as https;
+import '../Model/thuchi.dart';
 import 'main.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:kt2/Network/thuchi_request.dart';
 
 class NewTransaction extends StatefulWidget {
   const NewTransaction({super.key});
@@ -10,6 +14,9 @@ class NewTransaction extends StatefulWidget {
 }
 
 class NewTransactionState extends State<NewTransaction> {
+  final TextEditingController _controller = TextEditingController();
+  Future<ThuChi>? _futureThuChi;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +37,7 @@ class NewTransactionState extends State<NewTransaction> {
                       Text("   "),
                       Expanded(
                           child: TextField(
+                            controller: _controller,
                             decoration: InputDecoration(
                               hintText: "0"
                             ),
@@ -96,6 +104,9 @@ class NewTransactionState extends State<NewTransaction> {
         height: 40,
         child: FloatingActionButton(
           onPressed: () {
+            setState(() {
+              _futureThuChi = createThuChi(_controller.text);
+            });
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => HomePage(symbol: '',))
             );
@@ -107,4 +118,36 @@ class NewTransactionState extends State<NewTransaction> {
     );
   }
 
+  Future<ThuChi> createThuChi(String thu) async {
+    final response = await https.post(
+      Uri.parse('http://localhost:3000/ThuChi'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "thu": thu,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      return ThuChi.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to create ThuChi.');
+    }
+  }
+
+  FutureBuilder<ThuChi> buildFutureBuilder() {
+    return FutureBuilder<ThuChi>(
+      future: _futureThuChi,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.thu.toString());
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        return const CircularProgressIndicator();
+      },
+    );
+  }
 }

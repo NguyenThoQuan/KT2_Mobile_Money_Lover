@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kt2/View/EditMoney.dart';
-
+import 'main.dart';
 import 'CustomMoney.dart';
 import 'NewTransaction.dart';
 
 class Person extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() => PersonState();
 }
 
 class PersonState extends State<Person> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

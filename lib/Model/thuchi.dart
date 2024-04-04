@@ -5,10 +5,20 @@ class ThuChi {
 
   ThuChi({this.id, this.thu, this.chi});
 
-  ThuChi.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    thu = json['thu'];
-    chi = json['chi'];
+  factory ThuChi.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+      'id': String id,
+      'thu': String thu,
+      'chi': String chi
+      } =>
+          ThuChi(
+            id: id,
+            thu: thu,
+            chi: chi,
+          ),
+      _ => throw const FormatException('Failed to load album.'),
+    };
   }
 
   Map<String, dynamic> toJson() {

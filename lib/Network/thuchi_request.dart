@@ -22,4 +22,24 @@ class ThuChiRequest {
       throw Exception('Can\'t get post');
     }
   }
+
+  Future<ThuChi> createThuChi(String id, String thu, String chi) async {
+    final response = await https.post(
+      Uri.parse('http://localhost:3000/ThuChi'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "id": id,
+        "thu": thu,
+        "chi": chi,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      return ThuChi.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to create ThuChi.');
+    }
+  }
 }
