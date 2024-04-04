@@ -7,16 +7,23 @@ import 'dart:convert';
 import 'package:kt2/Network/thuchi_request.dart';
 
 class NewTransaction extends StatefulWidget {
-  const NewTransaction({super.key});
+  final String symbol;
+  
+  NewTransaction({required this.symbol});
 
   @override
-  State<StatefulWidget> createState() => NewTransactionState();
+  State<StatefulWidget> createState() => NewTransactionState(symbol: symbol);
 }
 
 class NewTransactionState extends State<NewTransaction> {
   final TextEditingController _controllerThu = TextEditingController();
   final TextEditingController _controllerChi = TextEditingController();
   Future<ThuChi>? _futureThuChi;
+  
+  final String symbol;
+  String symbolData = '';
+  
+  NewTransactionState({required this.symbol});
 
   @override
   void initState() {
@@ -25,8 +32,29 @@ class NewTransactionState extends State<NewTransaction> {
       _controllerChi.text = '0';
   }
 
+  void convertAndPostData() {
+    double thu = double.parse(_controllerThu.text);
+    double chi = double.parse(_controllerChi.text);
+    double conversionRate = 1.0;
+
+    if (symbol == '\$') {
+      conversionRate = 24000.0;
+    } else if (symbol == 'Euro') {
+      conversionRate = 27000.0;
+    }
+
+    thu *= conversionRate;
+    chi *= conversionRate;
+
+    _controllerThu.text = thu.toString();
+    _controllerChi.text = chi.toString();
+
+    _futureThuChi = createThuChi(thu.toString(), chi.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Thêm giao dịch'),
@@ -41,7 +69,7 @@ class NewTransactionState extends State<NewTransaction> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.monetization_on_outlined),
+                      Text(symbol),
                       Text("   "),
                       Expanded(
                           child: TextField(
@@ -58,7 +86,7 @@ class NewTransactionState extends State<NewTransaction> {
                     padding: const EdgeInsets.only(top: 15),
                     child: Row(
                       children: [
-                        Icon(Icons.menu),
+                        Text(symbol),
                         Text("   "),
                         Expanded(
                             child: TextField(
@@ -120,10 +148,11 @@ class NewTransactionState extends State<NewTransaction> {
         child: FloatingActionButton(
           onPressed: () {
             setState(() {
-              _futureThuChi = createThuChi(_controllerThu.text, _controllerChi.text);
+              symbolData = symbol;
+              convertAndPostData();
             });
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage(symbol: '', img: '', name: '',))
+                builder: (context) => HomePage(symbol: symbolData, img: '', name: '',))
             );
           },
           child: Text("Lưu"),

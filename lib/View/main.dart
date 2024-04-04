@@ -79,9 +79,9 @@ class HomeState extends State<HomePage> {
     }
 
     if (symbol == '\$') {
-      total = (total / 24).round();
+      total = (total / 24000).round();
     } else if (symbol == 'Euro') {
-      total = (total / 27).round();
+      total = (total / 27000).round();
     }
 
     return total;
@@ -338,8 +338,11 @@ class HomeState extends State<HomePage> {
                 padding: EdgeInsets.only(top: 18.0),
                 child: IconButton(
                   onPressed: () {
+                    setState(() {
+                      symbolData = symbol;
+                    });
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => NewTransaction())
+                        builder: (context) => NewTransaction(symbol: symbolData))
                     );
                   },
                   icon: Icon(Icons.add, size: 36,),

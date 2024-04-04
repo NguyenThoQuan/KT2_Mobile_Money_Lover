@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kt2/View/CustomMoney.dart';
+import '../Model/taikhoan.dart';
+import 'package:http/http.dart' as https;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -9,8 +13,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterState extends State<RegisterPage> {
-  // bool _onTapLabelText = false;
-  // bool _showPassWord = false;
+  final TextEditingController _controllerUserName = TextEditingController();
+  final TextEditingController _controllerPassWord = TextEditingController();
+  Future<TaiKhoan>? _futureTaiKhoan;
 
   @override
     Widget build(BuildContext context) {
@@ -134,13 +139,14 @@ class RegisterState extends State<RegisterPage> {
                           )
                         ],
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
                               child: TextField(
+                                controller: _controllerUserName,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   labelText: 'Email',
@@ -150,13 +156,14 @@ class RegisterState extends State<RegisterPage> {
                           ],
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
                               child: TextField(
+                                controller: _controllerPassWord,
                                 keyboardType: TextInputType.text,
                                 obscureText: true,
                                 decoration: InputDecoration(
@@ -203,6 +210,41 @@ class RegisterState extends State<RegisterPage> {
             ),
           ),
       ),
+    );
+  }
+
+  Future<TaiKhoan> createTaiKhoan(String username, String password) async {
+    final response = await https.post(
+      Uri.parse('http://localhost:3000/TaiKhoan'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "username": username,
+        "password": password,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      return TaiKhoan.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to create ThuChi.');
+    }
+  }
+
+  FutureBuilder<TaiKhoan> buildFutureBuilder() {
+    return FutureBuilder<TaiKhoan>(
+      future: _futureTaiKhoan,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.username.toString());
+        } else if (snapshot.hasData) {
+          return Text(snapshot.data!.password.toString());
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
+      },
     );
   }
 }

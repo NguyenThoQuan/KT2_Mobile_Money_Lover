@@ -95,8 +95,11 @@ class PersonState extends State<Person> {
               padding: EdgeInsets.only(top: 18.0),
               child: IconButton(
                 onPressed: () {
+                  setState(() {
+                    symbolData = symbol;
+                  });
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => NewTransaction())
+                      builder: (context) => NewTransaction(symbol: symbolData,))
                   );
                 },
                 icon: Icon(Icons.add, size: 36,),
