@@ -8,11 +8,13 @@ import 'package:kt2/Network/thuchi_request.dart';
 
 class NewTransaction extends StatefulWidget {
   final String symbol;
+  final String img;
+  final String name;
   
-  NewTransaction({required this.symbol});
+  NewTransaction({required this.symbol, required this.img, required this.name});
 
   @override
-  State<StatefulWidget> createState() => NewTransactionState(symbol: symbol);
+  State<StatefulWidget> createState() => NewTransactionState(symbol: symbol, img: img, name: name);
 }
 
 class NewTransactionState extends State<NewTransaction> {
@@ -21,9 +23,14 @@ class NewTransactionState extends State<NewTransaction> {
   Future<ThuChi>? _futureThuChi;
   
   final String symbol;
+  final String img;
+  final String name;
   String symbolData = '';
-  
-  NewTransactionState({required this.symbol});
+  String imgData = '';
+  String nameData = '';
+
+
+  NewTransactionState({required this.symbol, required this.img, required this.name});
 
   @override
   void initState() {
@@ -149,10 +156,12 @@ class NewTransactionState extends State<NewTransaction> {
           onPressed: () {
             setState(() {
               symbolData = symbol;
+              imgData = img;
+              nameData = name;
               convertAndPostData();
             });
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomePage(symbol: symbolData, img: '', name: '',))
+                builder: (context) => HomePage(symbol: symbolData, img: imgData, name: nameData,))
             );
           },
           child: Text("Lưu"),

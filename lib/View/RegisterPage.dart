@@ -180,6 +180,9 @@ class RegisterState extends State<RegisterPage> {
                           width: 420,
                           child: ElevatedButton(
                               onPressed: () {
+                                setState(() {
+                                  _futureTaiKhoan = createTaiKhoan(_controllerUserName.text, _controllerPassWord.text);
+                                });
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => CustomMoney(name: 'Việt Nam', img: 'assets/vn.jpg', symbol: 'VND'))
                                 );

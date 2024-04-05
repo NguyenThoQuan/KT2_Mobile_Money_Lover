@@ -97,9 +97,11 @@ class PersonState extends State<Person> {
                 onPressed: () {
                   setState(() {
                     symbolData = symbol;
+                    imgData = img;
+                    nameData = name;
                   });
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => NewTransaction(symbol: symbolData,))
+                      builder: (context) => NewTransaction(symbol: symbolData, img: imgData, name: nameData))
                   );
                 },
                 icon: Icon(Icons.add, size: 36,),

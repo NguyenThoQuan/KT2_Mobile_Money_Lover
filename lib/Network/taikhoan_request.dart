@@ -6,7 +6,7 @@ import 'package:http/http.dart' as https;
 class TaiKhoanRequest {
   static const String url = 'http://localhost:3000/TaiKhoan';
 
-  static List<TaiKhoan> parsePost(String responseBody) {
+  static List<TaiKhoan> parseTaiKhoan(String responseBody) {
     var list = json.decode(responseBody) as List<dynamic>;
     List<TaiKhoan> taiKhoan = list.map((model) => TaiKhoan.fromJson(model)).toList();
     return taiKhoan;
@@ -15,7 +15,7 @@ class TaiKhoanRequest {
   static Future<List<TaiKhoan>> fetchTaiKhoans({int page = 1}) async {
     final response = await https.get(Uri.parse('http://localhost:3000/TaiKhoan'));
     if (response.statusCode == 200) {
-      return compute(parsePost, response.body);
+      return compute(parseTaiKhoan, response.body);
     } else if (response.statusCode == 400) {
       throw Exception('Not Found');
     } else {

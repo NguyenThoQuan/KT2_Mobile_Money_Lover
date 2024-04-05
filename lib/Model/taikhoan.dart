@@ -17,7 +17,7 @@ class TaiKhoan {
             username: username,
             password: password,
           ),
-      _ => throw const FormatException('Failed to load album.'),
+      _ => throw const FormatException('Failed to load TaiKhoan.'),
     };
   }
 
